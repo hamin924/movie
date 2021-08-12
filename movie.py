@@ -2,7 +2,7 @@ from datetime import datetime
 name = input("이름 입력 : ")
 
 print("-*"*30)
-print("\t\t%s's 영화관 프로그램!"%(name)) #프로그램 제목 출력
+print("\t\t%s'이의 영화관!"%(name)) #프로그램 제목 출력
 print("-*"*30)
 
 def theater():
@@ -46,7 +46,7 @@ def time():
     nowDatetime=now.strftime('%Y-%m-%d %H:%M:%S')
     
     print("현재시각 : "+nowDatetime)
-    list=[["10:00","12:00"],["12:30","2:30"],["3:00","5:00"],["5:45","7:45"],["8:00","10:30"]]
+    list=[["1회","10:00","12:00"],["2회","12:30","2:30"],["3회","3:00","5:00"],["4회","5:45","7:45"],["5회","8:00","10:30"]]
     today10am=now.replace(hour=10,minute=0,second=0)
     today1230pm=now.replace(hour=12,minute=30,second=0)
    
@@ -58,7 +58,7 @@ def time():
     if(now<today10am):
         print(list[0],list[1],list[2],list[3],list[4])
         while(True):
-            s=int(input("시간대를 입력하세요:"))
+            s=int(input("회차를 입력하세요:"))
             if(s==1):
                 S="1회 10:00~12:00"
                 break
@@ -82,18 +82,18 @@ def time():
     elif(now>today10am and now<today1230pm):
         print(list[1],list[2],list[3],list[4])
         while(True):
-            s=int(input("시간대를 입력하세요:"))
+            s=int(input("회차를 입력하세요:"))
             
-            if(s==1):
+            if(s==2):
                 S="2회 12:30~2:30"
                 break
-            elif(s==2):
+            elif(s==3):
                 S="3회 3:00~5:00"
                 break
-            elif(s==3):
+            elif(s==4):
                 S="4회 5:45~7:45"
                 break
-            elif(s==4):
+            elif(s==5):
                 S="5회 8:00~10:30"
                 break
             else:
@@ -104,15 +104,15 @@ def time():
     elif(now>today1230pm and now<today3pm):
         print(list[2],list[3],list[4])
         while(True):
-            s=int(input("시간대를 입력하세요:"))
+            s=int(input("회차를 입력하세요:"))
             
-            if(s==1):
+            if(s==3):
                 S="3회 3:00~5:00"
                 break
-            elif(s==2):
+            elif(s==4):
                 S="4회 5:45~7:45"
                 break
-            elif(s==3):
+            elif(s==5):
                 S="5회 8:00~10:30"
                 break
             else:
@@ -122,12 +122,12 @@ def time():
     elif(now>today3pm and now<today545pm):
         print(list[3],list[4])
         while(True):
-            s=int(input("시간대를 입력하세요:"))
+            s=int(input("회차를 입력하세요:"))
             
-            if(s==1):
+            if(s==4):
                 S="4회 5:45~7:45"
                 break
-            elif(s==2):
+            elif(s==5):
                 S="5회 8:00~10:30"
                 break
             else:
@@ -156,39 +156,82 @@ def seat():
         
 
         while(True):
-            
-            print("좌석을 입력하시오.")
-            r=int(input("열을 입력하시오:"))
-            c=int(input("좌석을 입력하시오:"))
-
-            if(a[r-1][c]=="x"):
-                print("이미 예매된 좌석입니다. 다시 입력하시오.")
+            q=int(input("1.개인석\n2.단체석\n번호를 입력하세요:"))
+            if(q==1):
+                print("좌석을 입력하시오.")
                 r=int(input("열을 입력하시오:"))
                 c=int(input("좌석을 입력하시오:"))
+
+                for i in range(0,6):
+                    if(a[r-1][i]=="x"):
+                        print("이미 예매된 좌석입니다. 다시 입력하시오.")
+                        r=int(input("열을 입력하시오:"))
+                        c=int(input("좌석을 입력하시오:"))
+                    
+                    
+                    elif(a[r-1][i]=="o"):
+                        print("%d열 %d이 예매되었습니다." %(r,c))
+                        a[r-1][c]="x"
+                        break
+
                 x="%d열 %d" %(r,c)
-                list.append(x)
-                
-            elif(a[r-1][c]=="o"):
-                print("%d열 %d이 예매되었습니다." %(r,c))
-                a[r-1][c]="x"
-                x="%d열 %d" %(r,c)
-                list.append(x)
+                list.append(x)  
+
+                for i in a:
+                    print(i)
             
-            for i in a:
-                print(i)
+
                 
-            t=input("더 구매하시겠습니까?(Y/N):")
-            if(t=="N" or t=="n"):
-                break
-            elif(t=="Y" or t=="y"):
-                continue
-            else:
-                print("다시 입력하세요")
                 t=input("더 구매하시겠습니까?(Y/N):")
                 if(t=="N" or t=="n"):
                     break
                 elif(t=="Y" or t=="y"):
                     continue
+                else:
+                    print("다시 입력하세요")
+                    t=input("더 구매하시겠습니까?(Y/N):")
+                    if(t=="N" or t=="n"):
+                        break
+                    elif(t=="Y" or t=="y"):
+                        continue
+
+            elif(q==2): 
+                r=int(input("열을 입력하세요:"))
+                
+                for i in range(0,6): 
+
+                    if(a[r-1][i]=="x"):
+                        print("이미 예매된 좌석입니다. 다시 입력하시오.")
+                        r=int(input("열을 입력하시오:"))
+                        
+                        
+                        
+                
+                    elif(a[r-1][i]=="o"):
+                        
+                        a[r-1][i]="x"
+                        
+                
+                    
+                    x="%d열 %d" %(r,i+1)
+                    list.append(x)
+                print("%d열 전체가 예매되었습니다." %(r))
+                    
+                for i in a:
+                    print(i)    
+
+                t=input("더 구매하시겠습니까?(Y/N):")
+                if(t=="N" or t=="n"):
+                    break
+                elif(t=="Y" or t=="y"):
+                    continue
+                else:
+                    print("다시 입력하세요")
+                    t=input("더 구매하시겠습니까?(Y/N):")
+                    if(t=="N" or t=="n"):
+                        break
+                    elif(t=="Y" or t=="y"):
+                        continue
     
 
     elif(x==2):
@@ -199,56 +242,105 @@ def seat():
         
 
         while(True):
-            
-            print("좌석을 입력하시오.")
-            r=int(input("열을 입력하시오:"))
-            c=int(input("좌석을 입력하시오:"))
-
-            if(a[r-1][c]=="x"):
-                print("이미 예매된 좌석입니다. 다시 입력하시오.")
+            q=int(input("1.개인석\n2.단체석\n번호를 입력하세요:"))
+            if(q==1):
+                print("좌석을 입력하시오.")
                 r=int(input("열을 입력하시오:"))
                 c=int(input("좌석을 입력하시오:"))
+
+                for i in range(0,6):
+                    if(a[r-1][i]=="x"):
+                        print("이미 예매된 좌석입니다. 다시 입력하시오.")
+                        r=int(input("열을 입력하시오:"))
+                        c=int(input("좌석을 입력하시오:"))
+                        
+                        
+                    elif(a[r-1][i]=="o"):
+                        print("%d열 %d이 예매되었습니다." %(r,c))
+                        a[r-1][c]="x"
+                        break
                 x="%d열 %d" %(r,c)
                 list.append(x)
+                    
+                for i in a:
+                    print(i)    
+                    
                 
-            elif(a[r-1][c]=="o"):
-                print("%d열 %d이 예매되었습니다." %(r,c))
-                a[r-1][c]="x"
-                x="%d열 %d" %(r,c)
-                list.append(x)
-            
-            for i in a:
-                print(i)    
-                
-            
-            t=input("더 구매하시겠습니까?(Y/N):")
-            if(t=="N" or t=="n"):
-                break
-            elif(t=="Y" or t=="y"):
-                continue
-            else:
-                print("다시 입력하세요")
                 t=input("더 구매하시겠습니까?(Y/N):")
                 if(t=="N" or t=="n"):
                     break
                 elif(t=="Y" or t=="y"):
                     continue
+                else:
+                    print("다시 입력하세요")
+                    t=input("더 구매하시겠습니까?(Y/N):")
+                    if(t=="N" or t=="n"):
+                        break
+                    elif(t=="Y" or t=="y"):
+                        continue
+            if(q==2):
+                r=int(input("열을 입력하세요:"))
+                
+                for i in range(0,6): 
+
+                    if(a[r-1][i]=="x"):
+                        print("이미 예매된 좌석입니다. 다시 입력하시오.")
+                        r=int(input("열을 입력하시오:"))
+                        
+                        
+                        
+                
+                    elif(a[r-1][i]=="o"):
+                        
+                        a[r-1][i]="x"
+                        
+                
+                    
+                    x="%d열 %d" %(r,i+1)
+                    list.append(x)
+                print("%d열 전체가 예매되었습니다." %(r))
+
+                    
+                for i in a:
+                    print(i)    
+
+                t=input("더 구매하시겠습니까?(Y/N):")
+                if(t=="N" or t=="n"):
+                    break
+                elif(t=="Y" or t=="y"):
+                    continue
+                else:
+                    print("다시 입력하세요")
+                    t=input("더 구매하시겠습니까?(Y/N):")
+                    if(t=="N" or t=="n"):
+                        break
+                    elif(t=="Y" or t=="y"):
+                        continue
+
+
     money=0
     n=len(list)
-    while(n>0):
-        peo=int(input("1.성인 2.청소년 3.어린이,노약자\n번호를 입력하세요:"))
-        if(peo==1):
-            money+=9000
+    print("%d개의 좌석이 예약되었습니다" %(n))
+    
+    adult=int(input("성인 명수:"))
+    teen=int(input("청소년 명수:"))
+    chil=int(input("어린이,노약자 명수:"))
+       
+    while(adult+teen+chil != n):
+        print("다시 입력하세요.")
+        adult=int(input("성인 명수:"))
+        teen=int(input("청소년 명수:"))
+        chil=int(input("어린이,노약자 명수:"))
+    
+    money=adult*9000
             
-        elif(peo==2):
-            money+=7000
+        
+    money+=teen*7000
             
-        elif(peo==3):
-            money+=5000
-        else:
-            print("다시 입력하세요")
-            continue
-        n-=1
+        
+    money+=chil*5000
+      
+    
 
     return list,money
 
